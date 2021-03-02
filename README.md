@@ -66,12 +66,18 @@ go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParame
 入れ子にして試してみましょう。  
 パラメーターがどこで分割されて　どのような塊となって、ちゃんと渡されているかが論旨です。 `-ArgumentList` の右隣のダブルクォーテーションに注目してください。  
 
+以下のコマンドは失敗します。  
+
 ```shell
 # 3行目が長いことに注意してください
 go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/go-start-process.exe ^
 -WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-1 ^
--ArgumentList "-FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-2"
+-ArgumentList "-FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-2 -ArgumentList \"-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-3\""
 ```
+
+例えば、`-Name "-Number 1"` が `-Name` と `"-Number` と `1"` にトークンナイズされるから exec.Cmd(name, parameterArray) で失敗します。  
+ダブルクォーテーションで囲まれた半角空白でスプリットされてしまうのが問題。  
+半角空白と、深くなっていくダブルクォーテーションのエスケープを相手にしていてはいけません。  
 
 go-start-process 自身のログはファイルには出力されません。  
 外部プロセスの標準出力をログ・ファイルに出力します。  
