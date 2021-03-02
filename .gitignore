@@ -1,6 +1,6 @@
 # Logging
-workspace/count.log
-count.log
+workspace/*.log
+*.log
 
 # Binaries for programs and plugins
 *.exe
