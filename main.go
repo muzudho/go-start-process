@@ -20,25 +20,26 @@ func main() {
 
 	// コマンドライン引数
 	wd := flag.String("WorkingDirectory", dwd, "Working directory path.")
+	fmt.Printf("GSP     | WorkingDirectory=%s\n", *wd)
+
 	filePath := flag.String("FilePath", dwd, "Executable file path.")
+	fmt.Printf("GSP     | ExeFilePath=%s\n", *filePath)
+
 	argumentList := flag.String("ArgumentList", "", "Parameters.")
 	flag.Parse()
-	fmt.Printf("GSP     | flag.Args()=%s\n", flag.Args())
 
 	parameters := strings.Split(*argumentList, " ")
+	fmt.Printf("GSP     | Parameters=[%s]\n", strings.Join(parameters, " "))
 
-	outputFileName := filepath.Join(*wd, "go-start-process.log")
-	writeString(outputFileName, "GSP     | Start\n")
+	externalProcessLogName := filepath.Join(*wd, "external-process.log")
+	fmt.Printf("GSP     | ExternalProcessLogName=%s\n", externalProcessLogName)
 
-	startProcess(*filePath, parameters, outputFileName)
-
-	writeString(outputFileName, "GSP     | End\n")
+	fmt.Printf("GSP     | Start\n")
+	startProcess(*filePath, parameters, externalProcessLogName)
+	fmt.Printf("GSP     | End\n")
 }
 
-func startProcess(exeFilePath string, parameters []string, outputFileName string) {
-	fmt.Printf("GSP     | exeFilePath=%s\n", exeFilePath)
-	fmt.Printf("GSP     | parameters=%s\n", parameters)
-	fmt.Printf("GSP     | outputFileName=%s\n", outputFileName)
+func startProcess(exeFilePath string, parameters []string, externalProcessLogName string) {
 
 	cmd := exec.Command(exeFilePath, parameters...)
 
@@ -50,12 +51,12 @@ func startProcess(exeFilePath string, parameters []string, outputFileName string
 		panic(fmt.Errorf("cmd.Start() --> [%s]", err))
 	}
 
-	receiveExternalProcessStdout(externalProcessStdout, outputFileName)
+	receiveExternalProcessStdout(externalProcessStdout, externalProcessLogName)
 
 	cmd.Wait()
 }
 
-func receiveExternalProcessStdout(externalProcessStdout io.ReadCloser, outputFileName string) {
+func receiveExternalProcessStdout(externalProcessStdout io.ReadCloser, externalProcessLogName string) {
 	var buffer [1]byte // これが満たされるまで待つ。1バイト。
 
 	p := buffer[:]
@@ -76,7 +77,7 @@ func receiveExternalProcessStdout(externalProcessStdout io.ReadCloser, outputFil
 			bytes := p[:n]
 
 			// 思考エンジンから１文字送られてくるたび、表示。
-			writeString(outputFileName, string(bytes))
+			writeString(externalProcessLogName, string(bytes))
 		}
 	}
 }
