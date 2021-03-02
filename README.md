@@ -61,8 +61,3 @@ go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParame
 go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/go-start-process.exe ^
 -ArgumentList "-ArgumentList go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -ArgumentList \"-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace\""
 ```
-
-```
-go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/go-start-process.exe ^
--ArgumentList "go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -ArgumentList ""-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace"""
-```
