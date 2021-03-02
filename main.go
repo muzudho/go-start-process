@@ -18,22 +18,19 @@ func main() {
 	}
 	fmt.Printf("GSP     | DefaultWorkingDirectory=%s\n", dwd)
 
-	// コマンドライン引数
+	// コマンドライン引数登録
 	wd := flag.String("WorkingDirectory", dwd, "Working directory path.")
-	fmt.Printf("GSP     | WorkingDirectory=%s\n", *wd)
-
 	filePath := flag.String("FilePath", dwd, "External executable file path.")
-	fmt.Printf("GSP     | ExternalExeFilePath=%s\n", *filePath)
-
 	argumentList := flag.String("ArgumentList", "", "Parameters.")
+	// 解析
 	flag.Parse()
+
+	fmt.Printf("GSP     | WorkingDirectory=%s\n", *wd)
+	fmt.Printf("GSP     | ExternalExeFilePath=%s\n", *filePath)
 
 	parameters := strings.Split(*argumentList, " ")
 	argumentsString := strings.Join(parameters, " ")
 	fmt.Printf("GSP     | ExternalProcessArguments=[%s]\n", argumentsString)
-	for i, param := range parameters {
-		fmt.Printf("GSP     | [%d]=[%s]\n", i, param)
-	}
 
 	externalProcessLogName := filepath.Join(*wd, "external-process.log")
 	fmt.Printf("GSP     | ExternalProcessLogName=%s\n", externalProcessLogName)
@@ -45,7 +42,11 @@ func main() {
 
 func startProcess(exeFilePath string, parameters []string, externalProcessLogName string) {
 
+	for i, param := range parameters {
+		fmt.Printf("GSP     | [%d]=[%s]\n", i, param)
+	}
 	cmd := exec.Command(exeFilePath, parameters...)
+	fmt.Printf("GSP     | cmd.Args=%s\n", cmd.Args)
 
 	externalProcessStdout, _ := cmd.StdoutPipe()
 	defer externalProcessStdout.Close()
