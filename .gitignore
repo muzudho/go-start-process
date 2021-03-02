@@ -1,5 +1,5 @@
 # Logging
-workspace/*.log
+workspace-*/*.log
 *.log
 
 # Binaries for programs and plugins

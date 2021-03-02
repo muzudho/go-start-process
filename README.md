@@ -30,7 +30,7 @@ powershell
 
 Set-Location <WorkingDirectoryPath>
 # Example
-# Set-Location C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace
+# Set-Location C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-1
 
 ../go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParameters>
 # ../go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe
@@ -51,7 +51,7 @@ go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParame
 # `^` - コマンドラインを押し返したいときは末尾に付けてください
 # `"` - 引数が半角空白を含むときはダブルクォーテーションで囲んでください
 # go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe ^
-# -ArgumentList "-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace"
+# -ArgumentList "-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-1"
 ```
 
 では、 `go-start-process.exe` から `go-start-process.exe` を呼び出すとどうなるでしょうか？  
@@ -59,5 +59,5 @@ go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParame
 
 ```shell
 go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/go-start-process.exe ^
--ArgumentList "-ArgumentList go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -ArgumentList \"-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace\""
+-ArgumentList "-ArgumentList go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -ArgumentList \"-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-1\""
 ```
