@@ -9,24 +9,29 @@ import (
 )
 
 func main() {
-	// Working directory
-	wdir, err := os.Getwd()
+	// Default working directory
+	dwd, err := os.Getwd()
 	if err != nil {
-		panic(fmt.Errorf("wdir=[%s] err=[%s]", wdir, err))
+		panic(err)
 	}
-	fmt.Printf("wdir=[%s]\n", wdir)
+	fmt.Printf("DefaultWorkingDirectory=[%s]\n", dwd)
 
 	// コマンドライン引数
-	filePath := flag.String("FilePath", wdir, "Executable file path.")
+	filePath := flag.String("FilePath", dwd, "Executable file path.")
 	argumentList := flag.String("ArgumentList", "", "Parameters.")
 	flag.Parse()
 	fmt.Printf("flag.Args()=%s\n", flag.Args())
 
 	parameters := strings.Split(*argumentList, " ")
-	cmd := exec.Command(*filePath, parameters...)
-	err = cmd.Start()
+
+	startProcess(*filePath, parameters)
+}
+
+func startProcess(filePath string, parameters []string) {
+	cmd := exec.Command(filePath, parameters...)
+	err := cmd.Start()
 	if err != nil {
-		panic(fmt.Errorf("cmd.Run() --> [%s]", err))
+		panic(fmt.Errorf("cmd.Start() --> [%s]", err))
 	}
 	cmd.Wait()
 }

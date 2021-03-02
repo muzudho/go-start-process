@@ -21,7 +21,7 @@ go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParame
 # ```
 ```
 
-また、カレント・ディレクトリを移動したときに ファイルがどこに出力されるかも確認すること。  
+また、カレント・ディレクトリを移動したときに ファイルがどこに出力されるかも確認してください。  
 ただし、以下の　実行ファイルを相対パスで指定する方法は、健全な拡張性を塞いでしまいます。  
 
 ```shell
@@ -35,4 +35,16 @@ go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParame
 ../go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParameters>
 # Example
 # ../go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe
+```
+
+作業ディレクトリは指定できるべきですが、プロセス間の処理方法はＯＳごとに異なり一般的な方法がありません。  
+呼び出される側のアプリケーションが、作業ディレクトリを受け取れるようにしておいてください。  
+
+```shell
+go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParameters>
+# Example (Case of Windows)
+# `^` - コマンドラインを押し返したいときは末尾に付けてください
+# `"` - 引数が半角空白を含むときはダブルクォーテーションで囲んでください
+# go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe ^
+# -ArgumentList "-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace"
 ```
