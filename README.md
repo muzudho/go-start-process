@@ -34,6 +34,12 @@ Set-Location <WorkingDirectoryPath>
 
 ../go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParameters>
 # ../go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe
+
+# powershell から抜けてください
+exit
+
+# また、カレントディレクトリーを元に戻しておいてください
+# cd ..
 ```
 
 作業ディレクトリは指定できるべきですが、プロセス間の処理方法はＯＳごとに異なり一般的な方法がありません。  
