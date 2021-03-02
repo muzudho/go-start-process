@@ -64,11 +64,14 @@ go-start-process -FilePath <ExecutableFilePath> -ArgumentList <CommandLineParame
 
 では、 `go-start-process.exe` から `go-start-process.exe` を呼び出すとどうなるでしょうか？  
 入れ子にして試してみましょう。  
-パラメーターがどこで分割されて　どのような塊となって、ちゃんと渡されているかが論旨です。  
+パラメーターがどこで分割されて　どのような塊となって、ちゃんと渡されているかが論旨です。 `-ArgumentList` の右隣のダブルクォーテーションに注目してください。  
 
 ```shell
 # 3行目が長いことに注意してください
 go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/go-start-process.exe ^
 -WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-1 ^
--ArgumentList "-ArgumentList go-start-process -FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-2 -ArgumentList \"-WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-3\""
+-ArgumentList "-FilePath C:/Users/むずでょ/go/src/github.com/muzudho/go-count-up/go-count-up.exe -WorkingDirectory C:/Users/むずでょ/go/src/github.com/muzudho/go-start-process/workspace-2"
 ```
+
+go-start-process 自身のログはファイルには出力されません。  
+外部プロセスの標準出力をログ・ファイルに出力します。  

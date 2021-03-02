@@ -22,14 +22,18 @@ func main() {
 	wd := flag.String("WorkingDirectory", dwd, "Working directory path.")
 	fmt.Printf("GSP     | WorkingDirectory=%s\n", *wd)
 
-	filePath := flag.String("FilePath", dwd, "Executable file path.")
-	fmt.Printf("GSP     | ExeFilePath=%s\n", *filePath)
+	filePath := flag.String("FilePath", dwd, "External executable file path.")
+	fmt.Printf("GSP     | ExternalExeFilePath=%s\n", *filePath)
 
 	argumentList := flag.String("ArgumentList", "", "Parameters.")
 	flag.Parse()
 
 	parameters := strings.Split(*argumentList, " ")
-	fmt.Printf("GSP     | Parameters=[%s]\n", strings.Join(parameters, " "))
+	argumentsString := strings.Join(parameters, " ")
+	fmt.Printf("GSP     | ExternalProcessArguments=[%s]\n", argumentsString)
+	for i, param := range parameters {
+		fmt.Printf("GSP     | [%d]=[%s]\n", i, param)
+	}
 
 	externalProcessLogName := filepath.Join(*wd, "external-process.log")
 	fmt.Printf("GSP     | ExternalProcessLogName=%s\n", externalProcessLogName)
